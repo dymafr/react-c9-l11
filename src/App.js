@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import ThemeContext from './context/ThemeContext';
+import { TodoStateContext } from './context/TodoContext';
+import { TodoDispatcherContext } from './context/TodoContext';
 import todoReducer from './reducers/todoReducer';
 
 function App() {
@@ -61,28 +63,32 @@ function App() {
   }
 
   return (
-    <ThemeContext.Provider value={state.theme}>
-      <div className="d-flex justify-content-center align-items-center p-20">
-        <div className="card container p-20">
-          <h1 className="mb-20 d-flex justify-content-center align-items-center">
-            <span className="flex-fill">Liste de tâches</span>
-            <select value={state.theme} onChange={handleThemeChange}>
-              <option value="primary">Rouge</option>
-              <option value="secondary">Bleu</option>
-            </select>
-          </h1>
-          <AddTodo addTodo={addTodo} />
-          <TodoList
-            todoList={state.todoList}
-            deleteTodo={deleteTodo}
-            toggleTodo={toggleTodo}
-            toggleTodoEdit={toggleTodoEdit}
-            editTodo={editTodo}
-            selectTodo={selectTodo}
-          />
-        </div>
-      </div>
-    </ThemeContext.Provider>
+    <TodoStateContext.Provider value={state}>
+      <TodoDispatcherContext.Provider value={dispatch}>
+        <ThemeContext.Provider value={state.theme}>
+          <div className="d-flex justify-content-center align-items-center p-20">
+            <div className="card container p-20">
+              <h1 className="mb-20 d-flex justify-content-center align-items-center">
+                <span className="flex-fill">Liste de tâches</span>
+                <select value={state.theme} onChange={handleThemeChange}>
+                  <option value="primary">Rouge</option>
+                  <option value="secondary">Bleu</option>
+                </select>
+              </h1>
+              <AddTodo />
+              <TodoList
+                todoList={state.todoList}
+                deleteTodo={deleteTodo}
+                toggleTodo={toggleTodo}
+                toggleTodoEdit={toggleTodoEdit}
+                editTodo={editTodo}
+                selectTodo={selectTodo}
+              />
+            </div>
+          </div>
+        </ThemeContext.Provider>
+      </TodoDispatcherContext.Provider>
+    </TodoStateContext.Provider>
   );
 }
 
