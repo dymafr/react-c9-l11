@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Button from './Button';
 import { TodoDispatcherContext } from '../context/TodoContext';
 
-export default function AddTodo({ addTodo }) {
+export default function AddTodo() {
   const [value, setValue] = useState('');
   const dispatch = useContext(TodoDispatcherContext);
 
@@ -13,14 +13,20 @@ export default function AddTodo({ addTodo }) {
 
   function handleKeyDown(e) {
     if (e.key === 'Enter' && value.length) {
-      addTodo(value);
+      dispatch({
+        type: 'ADD_TODO',
+        content: value,
+      });
       setValue('');
     }
   }
 
   function handleClick() {
     if (value.length) {
-      addTodo(value);
+      dispatch({
+        type: 'ADD_TODO',
+        content: value,
+      });
       setValue('');
     }
   }

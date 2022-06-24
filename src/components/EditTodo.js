@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from './Button';
+import { TodoDispatcherContext } from '../context/TodoContext';
 
-export default function EditTodo({ todo, editTodo, cancelEditTodo }) {
+export default function EditTodo({ todo }) {
   const [value, setValue] = useState(todo.content);
+  const dispatch = useContext(TodoDispatcherContext);
 
   function handleChange(e) {
     const inputValue = e.target.value;
@@ -11,14 +13,22 @@ export default function EditTodo({ todo, editTodo, cancelEditTodo }) {
 
   function handleKeyDown(e) {
     if (e.key === 'Enter' && value.length) {
-      editTodo(value);
+      dispatch({
+        type: 'EDIT_TODO',
+        id: todo.id,
+        content: value,
+      });
       setValue('');
     }
   }
 
   function handleClick() {
     if (value.length) {
-      editTodo(value);
+      dispatch({
+        type: 'EDIT_TODO',
+        id: todo.id,
+        content: value,
+      });
       setValue('');
     }
   }
@@ -34,7 +44,16 @@ export default function EditTodo({ todo, editTodo, cancelEditTodo }) {
         placeholder="Ajouter une tâche"
       />
       <Button text="Sauvegarder" className="mr-15" onClick={handleClick} />
-      <Button text="Annuler" className="mr-15" onClick={cancelEditTodo} />
+      <Button
+        text="Annuler"
+        className="mr-15"
+        onClick={() =>
+          dispatch({
+            type: 'TOGGLE_EDIT_TODO',
+            id: todo.id,
+          })
+        }
+      />
     </div>
   );
 }

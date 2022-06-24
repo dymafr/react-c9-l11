@@ -12,49 +12,6 @@ function App() {
     todoList: [],
   });
 
-  function addTodo(content) {
-    dispatch({
-      type: 'ADD_TODO',
-      content,
-    });
-  }
-
-  function deleteTodo(id) {
-    dispatch({
-      type: 'DELETE_TODO',
-      id,
-    });
-  }
-
-  function toggleTodo(id) {
-    dispatch({
-      type: 'TOGGLE_TODO',
-      id,
-    });
-  }
-
-  function toggleTodoEdit(id) {
-    dispatch({
-      type: 'TOGGLE_EDIT_TODO',
-      id,
-    });
-  }
-
-  function editTodo(id, content) {
-    dispatch({
-      type: 'EDIT_TODO',
-      id,
-      content,
-    });
-  }
-
-  function selectTodo(id) {
-    dispatch({
-      type: 'SELECT_TODO',
-      id,
-    });
-  }
-
   function handleThemeChange(e) {
     dispatch({
       type: 'SET_THEME',
@@ -76,14 +33,7 @@ function App() {
                 </select>
               </h1>
               <AddTodo />
-              <TodoList
-                todoList={state.todoList}
-                deleteTodo={deleteTodo}
-                toggleTodo={toggleTodo}
-                toggleTodoEdit={toggleTodoEdit}
-                editTodo={editTodo}
-                selectTodo={selectTodo}
-              />
+              <TodoList todoList={state.todoList} />
             </div>
           </div>
         </ThemeContext.Provider>
