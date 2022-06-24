@@ -8,7 +8,7 @@ export default function TodoList() {
 
   return state.todoList.length ? (
     <ul>
-      {todoList.map((todo) =>
+      {state.todoList.map((todo) =>
         todo.edit ? (
           <EditTodo key={todo.id} todo={todo} />
         ) : (
