@@ -33,7 +33,7 @@ function App() {
                 </select>
               </h1>
               <AddTodo />
-              <TodoList todoList={state.todoList} />
+              <TodoList />
             </div>
           </div>
         </ThemeContext.Provider>

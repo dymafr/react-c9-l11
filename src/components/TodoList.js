@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TodoItem from './TodoItem';
 import EditTodo from './EditTodo';
+import { TodoStateContext } from '../context/TodoContext';
 
-export default function TodoList({ todoList }) {
-  return todoList.length ? (
+export default function TodoList() {
+  const state = useContext(TodoStateContext);
+
+  return state.todoList.length ? (
     <ul>
       {todoList.map((todo) =>
         todo.edit ? (
